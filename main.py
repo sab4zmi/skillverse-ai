@@ -76,3 +76,9 @@ async def evaluate_skills(request: EvaluationRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error during AI evaluation: {str(e)}")
+
+@app.get("/test-gemini")
+def test_gemini():
+    model = genai.GenerativeModel("gemini-2.5-flash-lite")
+    response = model.generate_content("Say hello")
+    return {"response": response.text}
