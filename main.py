@@ -60,7 +60,7 @@ async def evaluate_skills(request: EvaluationRequest):
         )
         
         # Call the Gemini model
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         user_prompt = f"Scenario Challenge: {request.scenario}\nStudent's Answer: {request.answer}"
         
         response = model.generate_content(
