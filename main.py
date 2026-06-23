@@ -15,7 +15,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+@app.get("/test-gemini")
+def test_gemini():
+    model = genai.GenerativeModel("gemini-2.5-flash-lite")
+    response = model.generate_content("Say hello")
+    return {"response": response.text}
 # Configure Gemini API using your secret key
 # (We will set this securely on Render later so no one can steal your key)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -77,8 +81,3 @@ async def evaluate_skills(request: EvaluationRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error during AI evaluation: {str(e)}")
 
-@app.get("/test-gemini")
-def test_gemini():
-    model = genai.GenerativeModel("gemini-2.5-flash-lite")
-    response = model.generate_content("Say hello")
-    return {"response": response.text}
